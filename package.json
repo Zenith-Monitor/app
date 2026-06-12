@@ -1,0 +1,14 @@
+{
+  "name": "zenith-monitor",
+  "version": "1.0.0",
+  "description": "PC Performance Monitor",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "chart.js": "^4.5.0",
+    "electron": "^39.0.0",
+    "systeminformation": "^5.27.7"
+  }
+}
