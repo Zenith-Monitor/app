@@ -1,18 +1,50 @@
-const { BrowserWindow, app } = require("electron");
+const { app, BrowserWindow, Menu } = require("electron");
 const path = require("path");
 
-require("./ipc");
+const registerIpc = require("./ipc"); 
 
+Menu.setApplicationMenu(null);
+
+let win;
+
+/**
+ * =========================
+ * WINDOW CREATION
+ * =========================
+ */
 function createWindow() {
-    const win = new BrowserWindow({
+
+    win = new BrowserWindow({
         width: 1400,
-        height: 900,
+        height: 850,
+        frame: false,
+        icon: path.join(__dirname, "../assets/icons/icon.ico"),
         webPreferences: {
-            preload: path.join(__dirname, "../../preload.js")
+            preload: path.join(__dirname, "../../preload.js"),
+            contextIsolation: true,
+            nodeIntegration: false
         }
     });
 
-    win.loadFile("src/views/index.html");
+    console.log("MAIN: Janela criada");
+
+    // DEVTOOLS
+    // win.webContents.openDevTools({ mode: "detach" });
+
+    win.loadFile(path.join(__dirname, "../views/index.html"));
+
+    // 🔥 PASSA A JANELA PRO IPC (CRÍTICO)
+    registerIpc(win);
+
+    console.log("MAIN: IPC registrado com sucesso");
 }
 
-app.whenReady().then(createWindow);
+/**
+ * =========================
+ * APP LIFECYCLE
+ * =========================
+ */
+app.whenReady().then(() => {
+    console.log("APP: Aberto");
+    createWindow();
+});

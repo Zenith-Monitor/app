@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZENITH MONITOR</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="../styles/dashboard.css">
+</head>
+
+<body>
+
+    <!-- TITLEBAR -->
+    <div class="titlebar">
+
+        <div class="title-left">
+            <div class="logo-dot"></div>
+            <span>ZENITH MONITOR</span>
+        </div>
+
+        <div class="controls">
+
+            <button onclick="window.api.window.minimize()" aria-label="Minimizar" class="window-btn">
+    <svg viewBox="0 0 24 24">
+        <path d="M5 12H19"/>
+    </svg>
+</button>
+            <button onclick="window.api.window.maximize()" aria-label="Maximizar" class="window-btn">
+    <svg viewBox="0 0 24 24">
+        <rect x="5" y="5" width="14" height="14" rx="1"/>
+    </svg>
+</button>
+            <button onclick="window.api.window.close()" aria-label="Fechar" class="window-btn close-btn">
+    <svg viewBox="0 0 24 24">
+        <path d="M6 6L18 18"/>
+        <path d="M18 6L6 18"/>
+    </svg>
+</button>
+
+        </div>
+
+    </div>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+
+                <div class="brand-mark" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>ZENITH</strong>
+                    <span>System Console</span>
+                </div>
+
+            </div>
+
+            <nav class="menu">
+
+                <button class="tab active" data-page="dashboard">
+                    <span>📊</span>
+                    Painel
+                </button>
+
+                <button class="tab" data-page="optimizer">
+                    <span>⚡</span>
+                    Otimizador
+                </button>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <div class="status-dot"></div>
+
+                <div class="footer-text">
+                    <span>Zenith Engine Online</span>
+                    <span id="footer-host" class="footer-sub">—</span>
+                </div>
+
+            </div>
+
+        </aside>
+
+        <!-- CONTENT -->
+        <main class="content">
+
+            <!-- DASHBOARD -->
+            <section class="page active" id="dashboard">
+
+                <div class="top-cards">
+
+                    <div class="hero-card scope-grid">
+
+                        <div class="hero-sweep" aria-hidden="true"></div>
+
+                        <div class="hero-title">Índice de Desempenho</div>
+
+                        <div id="performance-score" class="score-value">100</div>
+
+                        <div class="hero-legend">
+                            <span class="legend-item"><i class="dot dot-cpu"></i>CPU</span>
+                            <span class="legend-item"><i class="dot dot-ram"></i>RAM</span>
+                            <span class="legend-item"><i class="dot dot-gpu"></i>GPU</span>
+                            <span class="legend-item"><i class="dot dot-disk"></i>Disco</span>
+                        </div>
+
+                    </div>
+
+                    <div class="hero-card mini">
+
+                        <div class="hero-title">Status do Sistema</div>
+
+                        <div class="system-status">
+                            <span id="status-dot-live" class="status-dot-live"></span>
+                            <span id="system-status-text">Estável</span>
+                        </div>
+
+                        <div id="system-meta" class="system-meta">—</div>
+
+                    </div>
+
+                </div>
+
+                <div class="grid">
+
+                    <!-- CPU -->
+                    <div class="card card--cpu">
+
+                        <div class="card-header">
+
+                            <div>
+                                <div class="metric-title">CPU</div>
+                                <div id="cpu-text" class="metric-value">0%</div>
+                            </div>
+
+                            <span class="channel-badge">CH.01</span>
+
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="cpuChart"></canvas>
+                        </div>
+
+                    </div>
+
+                    <!-- RAM -->
+                    <div class="card card--ram">
+
+                        <div class="card-header">
+
+                            <div>
+                                <div class="metric-title">RAM</div>
+                                <div id="ram-text" class="metric-value">0%</div>
+                            </div>
+
+                            <span class="channel-badge">CH.02</span>
+
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="ramChart"></canvas>
+                        </div>
+
+                    </div>
+
+                    <!-- GPU -->
+                    <div class="card card--gpu">
+
+                        <div class="card-header">
+
+                            <div>
+                                <div class="metric-title">GPU</div>
+                                <div id="gpu-text" class="metric-value">0%</div>
+                            </div>
+
+                            <span class="channel-badge">CH.03</span>
+
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="gpuChart"></canvas>
+                        </div>
+
+                    </div>
+
+                    <!-- ARMAZENAMENTO -->
+                    <div class="card card--disk">
+
+                        <div class="card-header">
+
+                            <div>
+                                <div class="metric-title">Armazenamento</div>
+                                <div id="disk-text" class="metric-value">0%</div>
+                            </div>
+
+                            <span class="channel-badge">CH.04</span>
+
+                        </div>
+
+                        <select id="disk-select"></select>
+
+                        <div class="chart-container">
+                            <canvas id="diskChart"></canvas>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- OPTIMIZER -->
+            <section class="page" id="optimizer">
+
+                <div class="optimizer-grid">
+
+                    <div class="optimizer-card">
+
+                        <h2>⚡ Otimização Rápida</h2>
+                        <p>Executa limpeza de temporários, memória e DNS, e ativa o modo gaming — nessa ordem.</p>
+
+                        <button id="optimize-btn" class="opt-btn">
+                            Executar tudo
+                        </button>
+
+                    </div>
+
+                    <div class="optimizer-card">
+
+                        <h2>🧹 Arquivos Temporários</h2>
+                        <p>Remove os arquivos temporários do Windows que se acumulam com o uso.</p>
+
+                        <button id="temp-btn" class="opt-btn">
+                            Limpar temporários
+                        </button>
+
+                    </div>
+
+                    <div class="optimizer-card">
+
+                        <h2>🧠 Memória RAM</h2>
+                        <p>Esvazia working sets, libera a standby list e o cache de arquivos do sistema. Requer Administrador para o efeito completo.</p>
+
+                        <button id="ram-btn" class="opt-btn">
+                            Limpar memória
+                        </button>
+
+                    </div>
+
+                    <div class="optimizer-card">
+
+                        <h2>🎮 Modo Gaming</h2>
+                        <p>Troca o plano de energia para desempenho máximo, sem economia.</p>
+
+                        <button id="gaming-btn" class="opt-btn">
+                            Ativar modo gaming
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="card log-card">
+
+                    <div class="log-card-header">
+                        <h2>Log do Otimizador</h2>
+                        <span class="log-status">● <b>Ao vivo</b></span>
+                    </div>
+
+                    <div id="opt-log" class="log"></div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- CHARTS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- APP -->
+    <script src="../renderer/renderer.js"></script>
+
+</body>
+</html>

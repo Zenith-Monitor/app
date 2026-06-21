@@ -1,14 +1,36 @@
 {
   "name": "zenith-monitor",
+  "type": "commonjs",
   "version": "1.0.0",
   "description": "PC Performance Monitor",
+  "author": "Zenith",
   "main": "src/main/main.js",
+
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
+
   "dependencies": {
-    "chart.js": "^4.5.0",
-    "electron": "^39.0.0",
+    "chart.js": "^4.5.1",
     "systeminformation": "^5.27.7"
+  },
+
+  "devDependencies": {
+    "electron": "^39.8.10",
+    "electron-builder": "^26.15.3"
+  },
+
+  "build": {
+    "appId": "com.zenith.monitor",
+    "productName": "Zenith Monitor",
+
+    "directories": {
+      "output": "dist"
+    },
+
+    "win": {
+      "target": "portable"
+    }
   }
 }
