@@ -15,7 +15,6 @@ Construído com Electron + JavaScript puro.
 
 <p align="center">
   <img src="docs/screenshot-dashboard.png" alt="Painel do Zenith Monitor" width="800">
-  <img src="docs/screenshot-optimizer.png" alt="Painel do Zenith Monitor" width="800">
 </p>
 
 ---
