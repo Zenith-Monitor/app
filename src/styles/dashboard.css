@@ -1,19 +1,22 @@
+/* =========================================================
+   ZENITH MONITOR
+   CONSOLE DE TELEMETRIA — 4 CANAIS
+   ========================================================= */
+
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
 
 :root {
 
     /* ---- Chassi (fundo) ---- */
-    --bg-void: #080b0a;
-    --bg-2: #0c100e;
-
-    /* ---- Painéis ---- */
-    --panel: #101614;
-    --panel-raised: #141b19;
-    --sidebar: rgba(12, 16, 15, .92);
+    --bg-void: #07090f;
+    --bg-2:    #0b0d15;
+    --panel:   #0f1120;
+    --panel-raised: #131528;
+    --sidebar: rgba(10, 12, 20, .92);
 
     --border: rgba(255, 255, 255, .07);
     --border-strong: rgba(255, 255, 255, .15);
-    --grid-line: rgba(135, 255, 214, .055);
+    --grid-line: rgba(0, 91, 253, .055);
 
     /* ---- Canais (cada métrica = 1 canal, tipo osciloscópio) ---- */
     --ch-cpu: #ffb454;
@@ -22,7 +25,9 @@
     --ch-disk: #5b9dff;
 
     /* ---- Acento principal (deriva do canal RAM) ---- */
-    --accent: var(--ch-ram);
+    --accent: #005BFD;
+    --accent-light: #3d80ff;
+    --accent-glow: rgba(0, 91, 253, .35);
 
     /* ---- Status ---- */
     --success: #4ade80;
@@ -66,7 +71,7 @@ body {
     color: var(--text);
     overflow: hidden;
     background:
-        radial-gradient(circle at 100% 0%, rgba(95, 227, 192, .05), transparent 40%),
+        radial-gradient(circle at 100% 0%, rgba(0, 91, 253, .04), transparent 40%),
         linear-gradient(180deg, var(--bg-void), var(--bg-2));
 }
 
@@ -287,8 +292,8 @@ button, select {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--success);
-    box-shadow: 0 0 8px var(--success);
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
     flex-shrink: 0;
 }
 
@@ -445,8 +450,8 @@ button, select {
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: var(--success);
-    box-shadow: 0 0 8px var(--success);
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
 }
 
 .status-dot-live.status-warn { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
@@ -621,12 +626,13 @@ canvas {
 #optimize-btn {
     background: var(--accent);
     border-color: var(--accent);
-    color: #06140f;
+    color: #ffffff;
+    box-shadow: 0 0 18px rgba(0, 91, 253, .35);
 }
 
 #optimize-btn:hover {
-    filter: brightness(1.08);
-    color: #06140f;
+    filter: brightness(1.1);
+    color: #ffffff;
     background: var(--accent);
 }
 
@@ -649,7 +655,7 @@ canvas {
 .log-status {
     font-family: var(--font-mono);
     font-size: 10px;
-    color: var(--success);
+    color: var(--accent);
     letter-spacing: 1px;
 }
 
