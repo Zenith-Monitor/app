@@ -133,4 +133,4 @@ zenith-monitor/
 
 ---
 
-<p align="center">Feito por <strong>Cadu</strong></p># zenith-monitor
+<p align="center">Feito por <strong>Cadu</strong></p>
