@@ -9,6 +9,8 @@ Construído com Electron + JavaScript puro.
 ![Node](https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 
+🌐 **Site:** [zenith-monitor.github.io](https://Zenith-Monitor.github.io)
+
 ---
 
 ## 📸 Screenshots
