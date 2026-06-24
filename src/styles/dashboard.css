@@ -3,7 +3,43 @@
    CONSOLE DE TELEMETRIA — 4 CANAIS
    ========================================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+/* Fontes locais — não dependem de internet nem de CSP do Electron */
+@font-face {
+    font-family: "Space Grotesk";
+    src: url("../assets/fonts/SpaceGrotesk-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Space Grotesk";
+    src: url("../assets/fonts/SpaceGrotesk-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Space Grotesk";
+    src: url("../assets/fonts/SpaceGrotesk-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Space Grotesk";
+    src: url("../assets/fonts/SpaceGrotesk-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Space Mono";
+    src: url("../assets/fonts/SpaceMono-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Space Mono";
+    src: url("../assets/fonts/SpaceMono-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-display: swap;
+}
 
 :root {
 
@@ -40,8 +76,8 @@
     --faint: #566059;
 
     /* ---- Tipografia ---- */
-    --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
-    --font-mono: "IBM Plex Mono", "Consolas", monospace;
+    --font-body: "Space Grotesk", "Segoe UI", sans-serif;
+    --font-mono: "Space Mono", "Consolas", monospace;
 
     --radius: 10px;
     --radius-sm: 6px;
