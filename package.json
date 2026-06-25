@@ -2,21 +2,26 @@
   "name": "zenith-monitor",
   "type": "commonjs",
   "version": "1.0.0",
-  "description": "PC Performance Monitor",
-  "author": "Zenith",
+  "description": "Console de telemetria e otimização para Windows",
+  "author": {
+    "name": "Carlos Azevedo",
+    "email": ""
+  },
   "main": "src/main/main.js",
 
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "build:portable": "electron-builder --win portable",
+    "build:installer": "electron-builder --win nsis"
   },
 
   "dependencies": {
-    "chart.js": "^4.5.1",
     "systeminformation": "^5.27.7"
   },
 
   "devDependencies": {
+    "chart.js": "^4.5.1",
     "electron": "^39.8.10",
     "electron-builder": "^26.15.3"
   },
@@ -24,13 +29,53 @@
   "build": {
     "appId": "com.zenith.monitor",
     "productName": "Zenith Monitor",
+    "copyright": "Copyright © 2026 Carlos Azevedo",
 
     "directories": {
-      "output": "dist"
+      "output": "dist",
+      "buildResources": "src/assets"
     },
 
+    "files": [
+      "src/**/*",
+      "preload.js",
+      "package.json",
+      "!src/assets/fonts/.gitkeep",
+      "!**/*.map",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,readme.md,test,__tests__,tests,powered-by,spec,example,examples}",
+      "!**/node_modules/.bin",
+      "!**/{.DS_Store,.git,.gitignore,.gitattributes,.editorconfig,.eslintrc*,.babelrc,*.suo,*.ntvs*,*.njsproj,*.sln,*.sw?}"
+    ],
+
     "win": {
-      "target": "portable"
+      "icon": "src/assets/icons/icon.ico",
+      "requestedExecutionLevel": "requireAdministrator",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "src/assets/icons/icon.ico",
+      "uninstallerIcon": "src/assets/icons/icon.ico",
+      "installerHeaderIcon": "src/assets/icons/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Zenith Monitor",
+      "runAfterFinish": true
+    },
+
+    "portable": {
+      "artifactName": "Zenith-Monitor-Portable-${version}.exe"
     }
   }
 }

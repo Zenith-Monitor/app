@@ -26,3 +26,6 @@ desktop.ini
 
 # Diagnóstico/temporário
 *.tmp
+
+zenith-cert.pfx
+build-log.txt
