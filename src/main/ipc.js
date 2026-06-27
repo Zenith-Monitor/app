@@ -314,11 +314,13 @@ function registerIpc(win) {
 
     ipcMain.handle("window:close", () => sharedWin?.close());
 
-    ipcMain.handle("optimizer:temp", () => optimizer.cleanTemp());
-    ipcMain.handle("optimizer:ram", () => optimizer.clearRAM());
-    ipcMain.handle("optimizer:dns", () => optimizer.flushDNS());
-    ipcMain.handle("optimizer:gaming", (_, e) => optimizer.gamingMode(e));
-    ipcMain.handle("optimizer:run", (_, mode) => optimizer.runOptimization(mode));
+    ipcMain.handle("optimizer:temp",       () => optimizer.cleanTemp());
+    ipcMain.handle("optimizer:prefetch",   () => optimizer.cleanPrefetch());
+    ipcMain.handle("optimizer:ram",        () => optimizer.clearRAM());
+    ipcMain.handle("optimizer:dns",        () => optimizer.flushDNS());
+    ipcMain.handle("optimizer:gaming",     (_, e) => optimizer.gamingMode(e));
+    ipcMain.handle("optimizer:run",        (_, mode) => optimizer.runOptimization(mode));
+    ipcMain.handle("optimizer:abrir-log",  () => optimizer.abrirPastaLog());
 }
 
 module.exports = registerIpc;
