@@ -47,9 +47,12 @@
       "!**/{.DS_Store,.git,.gitignore,.gitattributes,.editorconfig,.eslintrc*,.babelrc,*.suo,*.ntvs*,*.njsproj,*.sln,*.sw?}"
     ],
 
+    "asarUnpack": [
+      "preload.js"
+    ],
+
     "win": {
       "icon": "src/assets/icons/icon.ico",
-      "requestedExecutionLevel": "requireAdministrator",
       "target": [
         {
           "target": "nsis",
