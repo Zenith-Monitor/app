@@ -4,10 +4,6 @@ const path = require("path");
 const os = require("os");
 const fs = require("fs");
 
-// Log imediato — primeira coisa que roda
-const logPath = path.join(os.tmpdir(), "zenith-crash.log");
-fs.appendFileSync(logPath, `[${new Date().toISOString()}] APP INICIADO — isPackaged=${app.isPackaged} execPath=${process.execPath}\n`);
-
 const registerIpc = require("./ipc");
 
 Menu.setApplicationMenu(null);
@@ -55,9 +51,9 @@ function isElevated() {
  * UAC — re-lança como admin
  *
  * Sem requestedExecutionLevel no manifest (que bloqueia sem
- * certificado), usamos Start-Process -Verb RunAs via PowerShell
- * pra pedir UAC em runtime. O delay de 2s garante que o novo
- * processo já iniciou antes de fechar o atual.
+ * certificado comercial), usamos Start-Process -Verb RunAs via
+ * PowerShell pra pedir UAC em runtime. O delay de 2s garante
+ * que o novo processo já iniciou antes de fechar o atual.
  * =========================
  */
 function relaunchAsAdmin() {
@@ -114,34 +110,9 @@ function createWindow() {
         }
     });
 
-    fs.appendFileSync(logPath, `[${new Date().toISOString()}] INDEX: ${indexPath}\n`);
-    fs.appendFileSync(logPath, `[${new Date().toISOString()}] PRELOAD: ${preloadPath}\n`);
-    fs.appendFileSync(logPath, `[${new Date().toISOString()}] INDEX EXISTS: ${fs.existsSync(indexPath)}\n`);
-    fs.appendFileSync(logPath, `[${new Date().toISOString()}] PRELOAD EXISTS: ${fs.existsSync(preloadPath)}\n`);
-    fs.appendFileSync(logPath, `[${new Date().toISOString()}] resourcesPath: ${process.resourcesPath}\n`);
-
     win.loadFile(indexPath);
 
-    win.webContents.on("did-fail-load", (event, errorCode, errorDescription, validatedURL) => {
-        fs.appendFileSync(logPath, `[${new Date().toISOString()}] DID-FAIL-LOAD: ${errorCode} ${errorDescription} ${validatedURL}\n`);
-    });
-
-    win.webContents.on("crashed", (event, killed) => {
-        fs.appendFileSync(logPath, `[${new Date().toISOString()}] RENDERER CRASHED killed=${killed}\n`);
-    });
-
-    win.on("closed", () => {
-        fs.appendFileSync(logPath, `[${new Date().toISOString()}] WINDOW CLOSED\n`);
-    });
-
-    try {
-        registerIpc(win);
-        fs.appendFileSync(logPath, `[${new Date().toISOString()}] IPC REGISTERED OK\n`);
-    } catch (err) {
-        fs.appendFileSync(logPath, `[${new Date().toISOString()}] IPC ERROR: ${err.stack}\n`);
-    }
-
-    console.log("MAIN: Janela criada");
+    registerIpc(win);
 }
 
 /**
@@ -151,23 +122,20 @@ function createWindow() {
  */
 app.whenReady().then(async () => {
     try {
-        fs.appendFileSync(logPath, `[${new Date().toISOString()}] APP READY\n`);
-
         const elevated = await isElevated();
-        fs.appendFileSync(logPath, `[${new Date().toISOString()}] ELEVATED=${elevated}\n`);
 
         if (!elevated) {
-            fs.appendFileSync(logPath, `[${new Date().toISOString()}] RELAUNCHING AS ADMIN\n`);
             relaunchAsAdmin();
             return;
         }
 
-        fs.appendFileSync(logPath, `[${new Date().toISOString()}] CREATING WINDOW\n`);
         createWindow();
-        fs.appendFileSync(logPath, `[${new Date().toISOString()}] WINDOW CREATED\n`);
 
     } catch (err) {
-        fs.appendFileSync(logPath, `[${new Date().toISOString()}] LIFECYCLE ERROR\n${err.stack}\n\n`);
+        fs.appendFileSync(
+            path.join(os.tmpdir(), "zenith-crash.log"),
+            `[${new Date().toISOString()}] LIFECYCLE ERROR\n${err.stack}\n\n`
+        );
         createWindow();
     }
 });
