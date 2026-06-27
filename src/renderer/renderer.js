@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     const btnOptimize = document.getElementById("optimize-btn");
     const btnTemp = document.getElementById("temp-btn");
+    const btnPrefetch = document.getElementById("prefetch-btn");
     const btnRam = document.getElementById("ram-btn");
     const btnGaming = document.getElementById("gaming-btn");
 
@@ -72,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
             log("🚀 Iniciando otimização completa...");
 
             await safeCall(() => window.api.optimizer.cleanTemp(), "Limpando temporários")();
+            await safeCall(() => window.api.optimizer.cleanPrefetch(), "Limpando Prefetch")();
             await safeCall(() => window.api.optimizer.clearRAM(), "Otimizando memória")();
             await safeCall(() => window.api.optimizer.flushDNS(), "Limpando DNS")();
             await safeCall(() => window.api.optimizer.gamingMode(true), "Ativando modo gaming")();
@@ -86,6 +88,12 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
+    if (btnPrefetch) {
+        btnPrefetch.addEventListener("click",
+            safeCall(() => window.api.optimizer.cleanPrefetch(), "Limpeza de Prefetch")
+        );
+    }
+
     if (btnRam) {
         btnRam.addEventListener("click",
             safeCall(() => window.api.optimizer.clearRAM(), "Limpeza de memória")
@@ -96,6 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
         btnGaming.addEventListener("click",
             safeCall(() => window.api.optimizer.gamingMode(true), "Modo gaming")
         );
+    }
+
+    const btnOpenLog = document.getElementById("open-log-btn");
+    if (btnOpenLog) {
+        btnOpenLog.addEventListener("click", () => {
+            window.api.optimizer.abrirLog();
+        });
     }
 
     /**

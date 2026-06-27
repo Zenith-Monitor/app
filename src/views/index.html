@@ -24,22 +24,9 @@
 
         <div class="controls">
 
-            <button onclick="window.api.window.minimize()" aria-label="Minimizar" class="window-btn">
-    <svg viewBox="0 0 24 24">
-        <path d="M5 12H19"/>
-    </svg>
-</button>
-            <button onclick="window.api.window.maximize()" aria-label="Maximizar" class="window-btn">
-    <svg viewBox="0 0 24 24">
-        <rect x="5" y="5" width="14" height="14" rx="1"/>
-    </svg>
-</button>
-            <button onclick="window.api.window.close()" aria-label="Fechar" class="window-btn close-btn">
-    <svg viewBox="0 0 24 24">
-        <path d="M6 6L18 18"/>
-        <path d="M18 6L6 18"/>
-    </svg>
-</button>
+            <button onclick="window.api.window.minimize()" aria-label="Minimizar">─</button>
+            <button onclick="window.api.window.maximize()" aria-label="Maximizar">□</button>
+            <button onclick="window.api.window.close()" aria-label="Fechar">✕</button>
 
         </div>
 
@@ -247,6 +234,17 @@
 
                     <div class="optimizer-card">
 
+                        <h2>🗂️ Cache de Prefetch</h2>
+                        <p>Limpa os arquivos de pré-carregamento do Windows, removendo entradas de apps antigos ou desinstalados.</p>
+
+                        <button id="prefetch-btn" class="opt-btn">
+                            Limpar Prefetch
+                        </button>
+
+                    </div>
+
+                    <div class="optimizer-card">
+
                         <h2>🧠 Memória RAM</h2>
                         <p>Esvazia working sets, libera a standby list e o cache de arquivos do sistema. Requer Administrador para o efeito completo.</p>
 
@@ -273,7 +271,12 @@
 
                     <div class="log-card-header">
                         <h2>Log do Otimizador</h2>
-                        <span class="log-status">● <b>Ao vivo</b></span>
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <button id="open-log-btn" class="opt-btn" style="width:auto;padding:6px 14px;font-size:11px;margin-top:0;">
+                                📁 Abrir pasta do log
+                            </button>
+                            <span class="log-status">● ao vivo</span>
+                        </div>
                     </div>
 
                     <div id="opt-log" class="log"></div>
