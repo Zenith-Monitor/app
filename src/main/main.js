@@ -141,5 +141,22 @@ app.whenReady().then(async () => {
 });
 
 app.on("window-all-closed", () => {
+    // Limpa a pasta temporária do portable ao fechar
+    // O electron-builder extrai o portable em %TEMP%\3Fxxx\
+    // Se não limpar, versões antigas ficam acumulando e podem
+    // causar conflito ao abrir uma versão diferente depois
+    if (app.isPackaged) {
+        try {
+            const pastaTemp = path.dirname(process.execPath);
+            // Só deleta se for uma pasta temporária do Electron portable
+            // (começa com "3F" que é o prefixo padrão do electron-builder)
+            if (pastaTemp.includes(os.tmpdir()) && path.basename(pastaTemp).startsWith("3F")) {
+                fs.rmSync(pastaTemp, { recursive: true, force: true });
+            }
+        } catch (e) {
+            // Ignora erros de limpeza — não é crítico
+        }
+    }
+
     app.quit();
 });
